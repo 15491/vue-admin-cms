@@ -25,15 +25,6 @@
         />
         <el-button class="code-btn" type="primary">获取验证码</el-button>
       </el-form-item>
-      <el-form-item class="text-option">
-        <el-checkbox>记住我</el-checkbox>
-        <el-button link>忘记密码</el-button>
-      </el-form-item>
-      <el-form-item>
-        <el-button class="login-btn" type="primary" @click="handleLogin"
-          >登 录</el-button
-        >
-      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -66,15 +57,22 @@ const rules: FormRules<IPhone> = {
 }
 
 const handleLogin = async () => {
+  console.log("验证码");
   if (!formEl) return
   await formEl.value?.validate((valid, fields) => {
     if (valid) {
       console.log('submit!')
     } else {
       console.log('error submit!', fields)
+      console.log("请输入手机号或验证码");
     }
   })
 }
+
+
+defineExpose({
+  handleLogin
+})
 </script>
 
 <style scoped lang="less">
@@ -94,16 +92,6 @@ const handleLogin = async () => {
 
 .login-btn {
   // margin-top: 50px;
-  width: 100%;
-}
-
-.text-option {
-  :deep(.el-form-item__content) {
-    display: flex;
-    justify-content: space-between;
-  }
-}
-.login-btn {
   width: 100%;
 }
 </style>

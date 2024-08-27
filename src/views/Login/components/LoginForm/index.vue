@@ -1,26 +1,31 @@
 <template>
   <div class="login-form">
     <!-- <div class="login-title">欢迎登录</div> -->
-    <el-tabs type="border-card" class="form-tabs" :stretch="true">
-      <el-tab-pane v-for="item in tabPanes" :key="item.name">
+    <el-tabs v-model="activeName" type="border-card" class="form-tabs" :stretch="true">
+      <el-tab-pane v-for="item in tabPanes" :key="item.name" :name="item.name">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon>
-              <component :is="item.icon" ref="form"></component>
+              <component :is="item.icon"></component>
             </el-icon>
             <span class="label">{{ item.label }}</span>
           </span>
         </template>
-        <component :is="item.component"></component>
+        <component :is="item.component" ref="form"></component>
       </el-tab-pane>
-
-      <el-button @click="handleLogin">按钮</el-button>
+      <div class="text-option">
+        <el-checkbox>记住我</el-checkbox>
+        <el-button link>忘记密码</el-button>
+      </div>
+      <el-button class="login-btn" type="primary" @click="handleLogin"
+        >登 录</el-button
+      >
     </el-tabs>
   </div>
 </template>
 
 <script setup lang="ts" name="LoginForm">
-import { ref } from 'vue';
+import { ref } from 'vue'
 import UserAccount from '../UserAccount/index.vue'
 import VerificationCode from '../VerificationCode/index.vue'
 
@@ -40,10 +45,16 @@ const tabPanes = [
   }
 ]
 
-const form = ref("")
+// 选中的tab
+const activeName = ref("first")
 
+// 登录表单组件
+const form = ref<any>()
+// 登录
 const handleLogin = () => {
-  console.log(form);
+  const tabIndex = tabPanes.findIndex(item => item.name === activeName.value)
+  form.value[tabIndex].handleLogin()
+
 }
 </script>
 
@@ -61,8 +72,21 @@ const handleLogin = () => {
       display: flex;
       align-items: center;
       .label {
-        margin-left: 5px;;
+        margin-left: 5px;
       }
+    }
+
+    .text-option {
+      display: flex;
+      justify-content: space-between;
+      :deep(.el-form-item__content) {
+        display: flex;
+        justify-content: space-between;
+      }
+      margin: 8px;
+    }
+    .login-btn {
+      width: 100%;
     }
   }
 }

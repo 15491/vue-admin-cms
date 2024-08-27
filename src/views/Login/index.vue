@@ -26,7 +26,7 @@ import LoginForm from './components/LoginForm/index.vue'
     margin-right: 100px;
     display: flex;
     background-color: white;
-    width: 420px;
+    width: 410px;
     opacity: 0.9;
     border-radius: 10px;
   }

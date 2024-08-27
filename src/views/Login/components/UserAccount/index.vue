@@ -5,8 +5,8 @@
     :model="formData"
     ref="formEl"
     @keyup.enter="handleLogin"
+    :rules="rules"
   >
-  <!--     :rules="rules" -->
     <el-form-item label="用户名" prop="username">
       <el-input
         v-model="formData.username"
@@ -25,15 +25,6 @@
         clearable
       />
     </el-form-item>
-    <el-form-item class="text-option">
-      <el-checkbox>记住我</el-checkbox>
-      <el-button link>忘记密码</el-button>
-    </el-form-item>
-    <el-form-item>
-      <el-button class="login-btn" type="primary" @click="handleLogin"
-        >登 录</el-button
-      >
-    </el-form-item>
   </el-form>
 </template>
 
@@ -44,6 +35,7 @@ import useUserStore from '@/stores/modules/user'
 import { ElMessage } from 'element-plus'
 import type {  FormRules, FormInstance } from 'element-plus'
 import type { IUser } from '@/types/Login/index'
+import { backtopProps } from 'element-plus/lib/components/index.js'
 const userStore = useUserStore()
 const router = useRouter()
 // 表单数据
@@ -83,6 +75,7 @@ const rules: FormRules<IUser> = {
 
 // 登录
 const handleLogin = async () => {
+  console.log("账号密码");
   if (!formEl.value) return
   await formEl.value.validate((valid, fields) => {
     if (valid) {
@@ -93,16 +86,11 @@ const handleLogin = async () => {
     }
   })
 }
+
+const b = ref(123)
+
+defineExpose({handleLogin, b})
 </script>
 
 <style scoped lang="less">
-.text-option {
-  :deep(.el-form-item__content) {
-    display: flex;
-    justify-content: space-between;
-  }
-}
-.login-btn {
-  width: 100%;
-}
 </style>

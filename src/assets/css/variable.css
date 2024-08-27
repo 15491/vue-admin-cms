@@ -1,0 +1,12 @@
+:root {
+  --theme-color: rgb(64, 116, 167);
+
+
+  --layout-aside-width: 200px;
+  --layout-main-width: calc(100vw - var(--layout-aside-width));
+  --layout-logoOrHeader-height: 64px;
+  --layout-menu-height: calc(100vh - var(--layout-logoOrHeader-height));
+
+  --layout-logo-size: 20px;
+  --layout-logoImg-height: 35px;
+}

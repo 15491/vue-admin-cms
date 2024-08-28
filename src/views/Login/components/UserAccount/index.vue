@@ -33,9 +33,9 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useUserStore from '@/stores/modules/user'
 import { ElMessage } from 'element-plus'
-import type {  FormRules, FormInstance } from 'element-plus'
+import type { FormRules, FormInstance } from 'element-plus'
 import type { IUser } from '@/types/Login/index'
-import { backtopProps } from 'element-plus/lib/components/index.js'
+
 const userStore = useUserStore()
 const router = useRouter()
 // 表单数据
@@ -50,32 +50,31 @@ const formEl = ref<FormInstance>()
 // 验证规则
 const rules: FormRules<IUser> = {
   username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' },
-    {
-      pattern: /^[\w-]{4,16}$/,
-      message: '请输入正确用户名',
-      trigger: 'blur'
-    }
+    { required: true, message: '请输入用户名', trigger: 'blur' }
+    // {
+    //   pattern: /^[\w-]{4,16}$/,
+    //   message: '请输入正确用户名',
+    //   trigger: 'blur'
+    // }
   ],
   password: [
     {
       required: true,
       message: '请输入密码',
       trigger: 'blur'
-    },
-    {
-      // 密码强度
-      pattern:
-        /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/,
-      message: '请输入合法密码',
-      trigger: ['blur']
     }
+    // {
+    //   // 密码强度
+    //   pattern:
+    //     /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/,
+    //   message: '请输入合法密码',
+    //   trigger: ['blur']
+    // }
   ]
 }
 
 // 登录
-const handleLogin = async () => {
-  console.log("账号密码");
+const handleLogin = async () => {  console.log('账号密码')
   if (!formEl.value) return
   await formEl.value.validate((valid, fields) => {
     if (valid) {
@@ -87,10 +86,9 @@ const handleLogin = async () => {
   })
 }
 
-const b = ref(123)
-
-defineExpose({handleLogin, b})
+defineExpose({
+  handleLogin
+})
 </script>
 
-<style scoped lang="less">
-</style>
+<style scoped lang="less"></style>
